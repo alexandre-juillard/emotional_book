@@ -15,18 +15,19 @@ Le public cible d'EmotionalBook comprend :
 - Les étudiants et les jeunes adultes cherchant à développer des compétences en gestion des émotions.
 
 ## Fonctionnalités principales
-1. **Suivi des émotions** : Les utilisateurs peuvent enregistrer leurs émotions quotidiennes, en sélectionnant parmi une liste issue de la roue des émotions de Plutchik. Puis ils ajoutent le ou les éléments déclencheurs de l'émotion, ainsi que des notes supplémentaires pour contextualiser leur ressenti. Et enfin la stratégie adoptée pour gérer cette émotion.
+1. **Suivi des émotions** : Les utilisateurs peuvent enregistrer leurs émotions quotidiennes, en sélectionnant parmi une liste issue de la roue des émotions de Willcox. Puis ils ajoutent le ou les éléments déclencheurs de l'émotion, ainsi que des notes supplémentaires pour contextualiser leur ressenti. Et enfin la stratégie adoptée pour gérer cette émotion.
 2. **Analyse des émotions** : Le carnet de bord permet aux utilisateurs de visualiser leurs émotions sur une période donnée, en générant des graphiques et des statistiques. Cela inclut la fréquence des émotions, les émotions les plus courantes, et les tendances au fil du temps.
 3. **Rappels et notifications** : Les utilisateurs peuvent configurer des rappels pour les inciter à enregistrer leurs émotions régulièrement. Des notifications peuvent également être envoyées pour encourager les utilisateurs à réfléchir sur leurs émotions et à pratiquer des techniques de gestion des émotions.
 4. **Journal de bord** : Les utilisateurs peuvent écrire des entrées de journal pour approfondir leurs réflexions et leurs expériences émotionnelles. Cela peut inclure des réflexions sur des événements spécifiques, des stratégies de gestion des émotions, ou des moments de gratitude.
-5. ** Exportation des données** : Les utilisateurs peuvent exporter leurs données émotionnelles sous forme de fichier CSV ou PDF pour une analyse plus approfondie ou pour les partager avec un professionnel de la santé mentale.
+5. **Exportation des données** : Les utilisateurs peuvent exporter leurs données émotionnelles sous forme de fichier CSV ou PDF pour une analyse plus approfondie ou pour les partager avec un professionnel de la santé mentale.
 6. **Sécurité et confidentialité** : Les données des utilisateurs sont stockées de manière sécurisée, avec des options de chiffrement et de sauvegarde. Les utilisateurs peuvent également choisir de rendre leurs données anonymes pour une utilisation dans des études ou des recherches.
 
 ## Technologies utilisées
-- **API** : L'application utilise une API RESTful en Java pour gérer les opérations de suivi des émotions, d'analyse et de journal de bord.
+- **API** : L'application utilise une API RESTful en Java pour gérer les opérations de suivi des émotions, d'analyse et de journal de bord. Documentée avec OpenAPI/Swagger.
 - **Base de données** : Les données des utilisateurs sont stockées dans une base de données relationnelle (par exemple, MySQL ou MongoDB) pour assurer la persistance et la sécurité des données.
-- **Interface mobille** : L'application dispose d'une interface mobile développée en Kotlin, permettant aux utilisateurs d'accéder à leurs données et de les enregistrer facilement depuis leur smartphone.
+- **Interface mobile** : L'application dispose d'une interface mobile développée en Kotlin, permettant aux utilisateurs d'accéder à leurs données et de les enregistrer facilement depuis leur smartphone.
 - **Sécurité** : Des protocoles de sécurité tels que HTTPS et OAuth2 sont utilisés pour protéger les données des utilisateurs et garantir la confidentialité des informations sensibles.
+- **Conteneurisation** : L'application est conteneurisée à l'aide de Docker pour faciliter le déploiement et la gestion des environnements.
 
 ## Cahier des charges
 Le cahier des charges du projet EmotionalBook comprend les spécifications fonctionnelles et techniques suivantes :

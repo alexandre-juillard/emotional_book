@@ -27,3 +27,12 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Aide-mémoire local (non versionné)
+AIDE-MEMOIRE-COMMANDES.txt
+
+# Variables d’environnement locales
+.env
+
+# Roadmap locale (non versionnée)
+ROADMAP_DEV.md
