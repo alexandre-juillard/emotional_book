@@ -1,0 +1,10 @@
+com\emotionalbook\GlobalExceptionHandler.class
+com\emotionalbook\HomeController.class
+com\emotionalbook\entries\EntriesRepository.class
+com\emotionalbook\emotions\EmotionDto.class
+com\emotionalbook\entries\EntriesController.class
+com\emotionalbook\emotions\EmotionsController.class
+com\emotionalbook\emotions\EmotionsRepository.class
+com\emotionalbook\entries\EntriesController$CreerEntreeEmotionRequete.class
+com\emotionalbook\EmotionalBookApiApplication.class
+com\emotionalbook\entries\dto\EntreeEmotionDto.class
