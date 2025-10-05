@@ -1,5 +1,6 @@
 package com.emotionalbook.it;
 
+import com.emotionalbook.security.JwtService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -53,8 +54,11 @@ class ApiIntegrationTest {
     @Autowired
     JdbcTemplate jdbc;
 
+    @Autowired
+    JwtService jwtService;
+
     @Test
-    @DisplayName("Parcours intégration: GET /emotions, POST/GET/DELETE /entries")
+    @DisplayName("Parcours intégration: GET /emotions, POST/GET/DELETE /entries (ownership)")
     void parcoursComplet() throws Exception {
         jdbc.update("INSERT INTO users(email, first_name, last_name) VALUES (?,?,?)", "it@example.com", "Int", "Test");
         Long userId = jdbc.queryForObject("SELECT id FROM users WHERE email=?", Long.class, "it@example.com");
@@ -62,6 +66,10 @@ class ApiIntegrationTest {
         Integer emotionId = jdbc.queryForObject("SELECT id FROM emotion_taxonomy WHERE level='primaire' LIMIT 1", Integer.class);
         assertThat(emotionId).isNotNull();
 
+        // Générer un token pour cet utilisateur
+        String bearer = "Bearer " + jwtService.genererToken(userId, "it@example.com");
+
+        // GET /emotions (sanity)
         String emotionsJson = mvc.perform(get("/emotions").param("level", "primaire"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
@@ -70,13 +78,13 @@ class ApiIntegrationTest {
         assertThat(arr.isArray()).isTrue();
         assertThat(arr.size()).isGreaterThan(0);
 
+        // POST /entries (auth requis) - ownership: aucun userId dans le body
         String body = "{\n" +
-                "  \"utilisateurId\": " + userId + ",\n" +
                 "  \"emotionPrincipaleId\": " + emotionId + ",\n" +
                 "  \"intensite\": 5,\n" +
                 "  \"note\": \"journée correcte\"\n" +
                 "}";
-        String createdJson = mvc.perform(post("/entries").contentType(APPLICATION_JSON).content(body))
+        String createdJson = mvc.perform(post("/entries").header("Authorization", bearer).contentType(APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
@@ -87,7 +95,8 @@ class ApiIntegrationTest {
         assertThat(created.path("emotionPrincipaleId").asInt()).isEqualTo(emotionId);
         assertThat(created.path("intensite").asInt()).isEqualTo(5);
 
-        String listJson = mvc.perform(get("/entries").param("userId", String.valueOf(userId)))
+        // GET /entries - ownership: pas de param userId
+        String listJson = mvc.perform(get("/entries").header("Authorization", bearer))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
@@ -96,15 +105,17 @@ class ApiIntegrationTest {
         assertThat(list.size()).isGreaterThan(0);
         assertThat(list.findValuesAsText("id")).contains(String.valueOf(entryId));
 
-        mvc.perform(get("/entries/" + entryId))
+        // GET /entries/{id}
+        mvc.perform(get("/entries/" + entryId).header("Authorization", bearer))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(entryId));
 
-        mvc.perform(delete("/entries/" + entryId))
+        // DELETE /entries/{id}
+        mvc.perform(delete("/entries/" + entryId).header("Authorization", bearer))
                 .andExpect(status().isNoContent());
 
-        mvc.perform(get("/entries/" + entryId))
+        // GET /entries/{id} -> 404
+        mvc.perform(get("/entries/" + entryId).header("Authorization", bearer))
                 .andExpect(status().isNotFound());
     }
 }
-

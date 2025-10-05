@@ -1,3 +1,5 @@
 com\emotionalbook\it\ApiIntegrationIT.class
-com\emotionalbook\web\ApiWebTest.class
 com\emotionalbook\it\ApiIntegrationTest.class
+com\emotionalbook\security\PasswordPolicyTest.class
+com\emotionalbook\web\ApiWebTest.class
+com\emotionalbook\security\RateLimitingIntegrationTest.class

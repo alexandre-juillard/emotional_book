@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.emotionalbook.security.RateLimitingIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.989 s -- in com.emotionalbook.security.RateLimitingIntegrationTest
